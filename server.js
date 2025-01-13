@@ -7,6 +7,9 @@ import notFound from './middleware/notFound.js';
 import errorHandler from './middleware/error.js';
 
 const PORT = process.env.PORT || 8000;
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -17,9 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 // Logger middleware
 app.use(logger);
 
-//const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Set a static folder
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
     app.use('/api/posts', posts);
     app.use('/api/posts/:id', posts);
     // Handle 404 errors
